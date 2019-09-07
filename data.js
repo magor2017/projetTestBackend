@@ -1,0 +1,5 @@
+const API_KEY="ebb995be4aade9f01a8d40755e9693d3c268ae37eee4716cf3aebb8512e7d9b0";
+const API_SECRET="fd43300223292f033901e116f9ab87e13cf5f4fcf29a5c0658af54f738a1c73e";
+
+module.exports.API_KEY=API_KEY;
+module.exports.API_SECRET=API_SECRET;
