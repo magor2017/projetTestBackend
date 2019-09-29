@@ -34,7 +34,13 @@ var connection = mysql.createConnection({
         }
     })
   }
+  function detail(ref,tel,code){
+      connection.query("INSERT INTO details(ref,tel,code) VALUES(?,?,?)",[ref,tel,code],(err)=>{
+          console.log("error");
+      });
+  }
   
   module.exports.insertPaiement=insertPaiement;
   module.exports.finaliserPaiement=finaliserPaiement;
+  module.exports.detail=detail;
   

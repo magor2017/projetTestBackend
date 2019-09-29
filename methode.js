@@ -4,18 +4,18 @@ const data=require("./data");
 
 forfaits=[
     {
-        item_name:"farfait1",
-        item_price:"55000",
+        item_name:"farfait 1 mois",
+        item_price:"1000",
         id:1
     },
     {
-        item_name:"farfait2",
-        item_price:"156",
+        item_name:"forfait 6 mois",
+        item_price:"3000",
         id:2
     },
     {
-        item_name:"farfait3",
-        item_price:"960",
+        item_name:"forfait 12 mois",
+        item_price:"6000",
         id:3
     }
 ]
@@ -45,7 +45,6 @@ async function getToken(param){
             let params = {
                 item_name:f.item_name,
                 item_price:f.item_price,
-                item_id:id,
                 currency:"XOF",
                 ref_command:ref_command,
                 command_name:"Paiement forfait",
@@ -79,7 +78,7 @@ async function getToken(param){
                     f.tel=param.tel;
                     try{
                         model.insertPaiement(f);
-                        return await paiement(id);
+                        return await paiement(id,f);
                     }catch(error){
                         return {success:-1};
 
@@ -121,7 +120,7 @@ function token(params,headers){
     
 }
 //methode pour demander un paiement
-function paiement(id){
+function paiement(id,f){
     let r=undefined;
     return fetch('https://sample.payexpresse.com/paiement.php',{
             method:"post",
@@ -131,7 +130,12 @@ function paiement(id){
                 "Content-Type":"application/x-www-form-urlencoded"
             }
         }).then(rep=>{
-            return rep.json()
+           // return {rep:rep.json(),f:f}
+            return rep.json().then(json=>{
+                return new Promise((resolve,reject)=>{
+                    resolve({rep:json,f:f})
+                });
+            });
         });
 }
 
